@@ -9,10 +9,11 @@ Created on Sun Jan 13 16:42:23 2019
 #Initial packages
 import numpy as np
 import pandas as pd
+import os
 
 # %% Class definition:
 
-class linear_regression():
+class linear_regression_batchGD():
        """Linear regressor.
        Class for implementing linear regression with batch gradient descent
        learning algorithm.
@@ -22,7 +23,7 @@ class linear_regression():
        alpha : float
         Learning rate (between 0.0 and 1.0)
        epochs : int
-        Iterations off the training dataset.
+        Iterations of the training dataset.
        X : {array-like}, shape = (n_samples, n_features)
             Training vectors, where n_samples is the number of 
             samples and n_features is the number of features.
@@ -53,7 +54,7 @@ class linear_regression():
            n = len(self.y)
            for epoch in range(self.epochs):
                 theta = theta - self.alpha * (1/n) * np.dot(self.X.T,(self.X.dot(theta) - self.y))
-                cost = linear_regression.cost_function(self.X, self.y, theta)
+                cost = linear_regression_batchGD.cost_function(self.X, self.y, theta)
                 print (f'Cost function value is {cost}.')
                 costs.append(cost)
            self.theta = theta
@@ -73,16 +74,23 @@ class linear_regression():
 if __name__ == '__main__':
     
     print('Loading data ...');
+    os.chdir('//Users/krzysztofrozanski/Documents/PROGRAMOWANIE/_Machine_learning/machine-learning-ex1/ex1')
     data = pd.read_csv('ex1data2.txt',header = None)
     X = data[[0,1]]
     y = data[2]
+    
     print('Normalizing features ...')
     X, mu, sigma = (X - np.mean(X, axis=0))/np.std(X, axis=0),np.mean(X, axis=0),np.std(X, axis=0)
+    
     print('Running batch gradient descent ...')
-    lr = linear_regression(0.01, 400)
+    lr = linear_regression_batchGD(0.01, 400)
     lr(X,y)
     lr.batch_gd()
-    np.dot([1,1650,3],lr.theta)
     
+    print('Prediction ...')
+    p = np.array([1650,3])
+    p_tr = (p - mu)/sigma
+    pred = np.dot(p_tr,lr.theta[1:]) + lr.theta[0]
+    print(pred)
         
 print("Linear regression with batch gradient descent script ends")
