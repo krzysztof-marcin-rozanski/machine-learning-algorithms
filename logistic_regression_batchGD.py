@@ -10,6 +10,7 @@ Created on Mon Jan 21 21:26:38 2019
 import numpy as np
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 
 # %% Class definition:
 
@@ -38,7 +39,7 @@ class logistic_regression_batchGD():
         List of cost function value in every epoch.
         
        """
-       def __init__(self, alpha=0.01, epochs=100):
+       def __init__(self, alpha=0.001, epochs=100):
            self.alpha = alpha
            self.epochs = epochs
           
@@ -52,7 +53,7 @@ class logistic_regression_batchGD():
            theta = np.zeros(self.X.shape[1])
            costs = []
            for epoch in range(self.epochs):
-                theta = theta - self.alpha * logistic_regression_batchGD.cost_function(self.X, self.y, theta)[0]
+                theta = theta - self.alpha * logistic_regression_batchGD.cost_function(self.X, self.y, theta)[1]
                 cost = logistic_regression_batchGD.cost_function(self.X, self.y, theta)[0]
                 print (f'Cost function value is {cost}.')
                 costs.append(cost)
@@ -71,7 +72,7 @@ class logistic_regression_batchGD():
            n = len(y)
            h = logistic_regression_batchGD.sigmoid(X.dot(theta))
            grad = (1/n) * X.T.dot(h - y)
-           J = - (1/n) * sum((y * np.log(h)) + (1 - y) * np.log(1 - h))
+           J = - (1/n) * (y.dot(np.log(h)) + (1 - y).dot(np.log(1 - h)))
            return J, grad
 
        @staticmethod
@@ -91,12 +92,16 @@ if __name__ == '__main__':
     y = data[2]
      
     print('Running batch gradient descent ...')
-    lr = logistic_regression_batchGD(0.01, 400)
+    lr = logistic_regression_batchGD(0.001, 100000)
     lr(X,y)
+    lr.cost_function(lr.X,lr.y,theta = np.zeros(lr.X.shape[1]))
+    lr.cost_function(lr.X,lr.y,[-24, 0.2, 0.2])
     lr.batch_gd()
+    plt.plot(range(len(lr.costs)),lr.costs)
+    lr.cost_function(lr.X,lr.y,lr.theta)
     
     print('Prediction ...')
-    prob = lr.sigmoid(np.dot(np.array([1, 45, 85], np.array([-25.16127,   0.20623,   0.20147]))))
+    prob = lr.sigmoid(np.dot(np.array([1, 45, 85]), np.array([-25.16127,   0.20623,   0.20147])))
     pred = lr.predict(lr.X)
     print(pred)
     print('Train Accuracy:', np.mean((pred == y)) * 100)
