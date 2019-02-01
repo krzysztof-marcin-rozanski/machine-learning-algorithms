@@ -17,4 +17,5 @@ def map_features(x1, x2, degree = 6):
             print(i-j,j)
     return out
 
-x = map_features(x1,x2,degree = 3)
+if __name__ == '__main__':
+    x = map_features(x1,x2,degree = 3)
