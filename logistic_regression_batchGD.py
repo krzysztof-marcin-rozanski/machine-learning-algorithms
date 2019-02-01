@@ -68,7 +68,7 @@ class logistic_regression_batchGD():
        @staticmethod
        def cost_function(X, y, theta):
            """ Computes the cost of using theta as the parameter for 
-               linear regression to fit the data points in X and y """
+               logistic regression to fit the data points in X and y """
            n = len(y)
            h = logistic_regression_batchGD.sigmoid(X.dot(theta))
            grad = (1/n) * X.T.dot(h - y)
