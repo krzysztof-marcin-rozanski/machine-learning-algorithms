@@ -75,9 +75,11 @@ class logistic_regression_batchGD_regularization():
            n = len(y)
            h = logistic_regression_batchGD_regularization.sigmoid(X.dot(theta))
            grad = np.array(np.zeros(X.shape[1]))
-           grad[0] = (1/n) * X[X.columns[0]].T.dot(h - y)
-           grad[1:] = (1/n) * X[X.columns[1:]].T.dot(h - y) + lambda_/n * theta[1:]
-           J = - (1/n) * sum((y * np.log(h)) + (1 - y) * np.log(1 - h)) + lambda_/(2*n) * theta[1:].dot(theta[1:])
+           grad = (1/n) * X.T.dot(h - y)
+           temp = theta
+           temp[0] = 0.0 #because we don't want to regularize bias term
+           grad += lambda_/n * temp
+           J = - (1/n) * (y.dot(np.log(h)) + (1 - y).dot(np.log(1 - h))) + lambda_/(2*n) * temp.dot(temp)
            return J, grad
 
        @staticmethod
