@@ -32,8 +32,7 @@ class linear_regression_normalEq():
         
        """
        def __init__(self, X, y):
-           ones = np.array([np.ones((X.shape[0],), dtype=int)])
-           self.X = np.concatenate((ones.T, X), axis=1)
+           self.X = np.c_[np.ones((X.shape[0],1)), X]
            self.y = y
       
        def normalEq(self):

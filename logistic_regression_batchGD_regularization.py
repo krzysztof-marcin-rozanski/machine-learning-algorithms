@@ -65,7 +65,7 @@ class logistic_regression_batchGD_regularization():
            return self 
         
        def predict(self, x):
-           """ Return class label after applying sigmoid function and unit step function """  
+           """ Return class label after applying sigmoid function and unit step function """
            return np.where(logistic_regression_batchGD_regularization.sigmoid(x.dot(self.theta)) >= 0.5, 1, 0) 
             
        @staticmethod

@@ -44,8 +44,7 @@ class logistic_regression_batchGD():
            self.epochs = epochs
           
        def __call__(self, X, y):
-           ones = np.array([np.ones((X.shape[0],), dtype=int)])
-           self.X = np.concatenate((ones.T, X), axis=1)
+           self.X = np.c_[np.ones((X.shape[0],1)), X]
            self.y = y
        
        def batch_gd(self):
