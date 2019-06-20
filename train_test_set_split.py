@@ -4,6 +4,7 @@ Created on Sun May 06 2019
 @author: krzysztof_rozanski
 """
 
+# Initial packages
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
