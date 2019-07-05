@@ -30,7 +30,7 @@ def learning_curves(model, X_df_train, X_df_test, y_train, y_test, score, multip
             for cat in cats:
                 val_dict[cat].append(score(y_test, y_val_predict, average='weighted', labels=[cat]))
     end = time.time()
-    print('- Finished:', end-start)
+    print("- Finished:", end-start)
     plt.plot(train_score, "r-+", linewidth=2, label="train_weighted_avg")
     plt.plot(val_score, "b-+", linewidth=3, label="test_weighted_ang")
     if plot_cat:
