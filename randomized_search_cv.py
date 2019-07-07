@@ -1,5 +1,5 @@
 """
-Created on Thr July 05 2019
+Created on Fri July 05 2019
 
 @author: krzysztof_rozanski
 """
