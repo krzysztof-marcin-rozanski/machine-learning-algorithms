@@ -21,10 +21,10 @@ def learning_curves(model, X_df_train, X_df_test, y_train, y_test, score, multip
     for cat in cats:
         val_dict[cat] = []
     for m in range(1, int(len(X_df_train)/multiplier)):
-        model.fit(X_df_train[:m*multiplier], y_train[:m*multiplier])
-        y_train_predict = model.predict(X_df_train[:m*multiplier])
+        model.fit(X_df_train[:m * multiplier], y_train[:m * multiplier])
+        y_train_predict = model.predict(X_df_train[:m * multiplier])
         y_val_predict = model.predict(X_df_test)
-        train_score.append(score(y_train[:m*multiplier], y_train_predict, average='weighted'))
+        train_score.append(score(y_train[:m * multiplier], y_train_predict, average='weighted'))
         val_score.append(score(y_test, y_val_predict, average='weighted'))
         if plot_cat:
             for cat in cats:
