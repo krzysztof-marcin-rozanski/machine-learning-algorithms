@@ -6,6 +6,7 @@ Created on Sun Jan 27 23:10:25 2019
 @author: krzysztofrozanski
 """
 
+# Initial packages
 import numpy as np
 import pandas as pd
 
